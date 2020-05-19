@@ -11,8 +11,6 @@ export function getElementFromPoint(point, name)
     var offsetX = window.scrollX ;
     var offsetY = window.scrollY ;
 
-    console.log(window.scrollX + " " + document.scrollLeft);
-
     var elems = document.elementsFromPoint(point.x - offsetX, point.y - offsetY);
     for (var i = 0; i < elems.length; i++)
     {

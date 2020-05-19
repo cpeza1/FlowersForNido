@@ -31,6 +31,20 @@ class Game {
         this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
     }
 
+    removeLine(socket, originID, targetID)
+    {
+        for (var i = 0; i < this.paths.length; i++)
+        {
+            var path = this.paths[i];
+            if (path.originID == originID && path.targetID == targetID)
+            {
+                this.paths.splice(i,1);
+            }
+        }
+        console.log(this.paths);
+        this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
+    }
+
     handleInput(socket, dragObject) {
         this.updatePlayers(socket, dragObject, Constants.MSG_TYPES.GAME_UPDATE, false);
     }

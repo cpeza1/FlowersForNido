@@ -32,6 +32,7 @@ io.on('connection', socket => {
     socket.on(Constants.MSG_TYPES.JOIN_GAME, joinGame);
     socket.on(Constants.MSG_TYPES.DRAG, handleInput);
     socket.on(Constants.MSG_TYPES.ADD_LINE, addLine);
+    socket.on(Constants.MSG_TYPES.REMOVE_LINE, removeLine);
   });
   
   // Setup the Game
@@ -47,4 +48,8 @@ io.on('connection', socket => {
 
   function addLine(fromID, targetID) {
       game.addLine(this, fromID, targetID);
+  }
+
+  function removeLine(fromID, targetID) {
+    game.removeLine(this, fromID, targetID);
   }

@@ -45,3 +45,8 @@ export const sendLineAddedToServer = (from, target) =>
 {
     socket.emit(Constants.MSG_TYPES.ADD_LINE, from, target);
 };
+
+export const removeLineFromServer = (from, target) =>
+{
+  socket.emit(Constants.MSG_TYPES.REMOVE_LINE, from, target);
+}

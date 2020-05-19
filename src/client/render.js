@@ -1,7 +1,7 @@
 import interact from 'interactjs'
 import paper from 'paper'
 import { getCenterOfElem } from './lineUtils'
-import { setLines } from './state'
+import { setCurrentLines } from './state'
 
 var canvas = document.getElementById('game-canvas');
 paper.setup(canvas);
@@ -12,6 +12,7 @@ function clearCanvas()
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.beginPath();
+    paper.project.clear()
 }
 
 // process an update from another player
@@ -47,6 +48,7 @@ export function processGameUpdate(dragObject){
 export function renderLinesFromServer(lineList)
 {
     clearCanvas();
+
     var newLines = [];
 
     for (var i=0; i < lineList.length; i++)
@@ -63,9 +65,8 @@ export function renderLinesFromServer(lineList)
         path.fillColor = 'black';
         path.strokeColor = 'red';
 
-        newLines.push({path,startpoint, endpoint});
+        newLines.push({path: path, startpoint: line.originID, endpoint: line.targetID });
     }
 
     setCurrentLines(newLines);
-    console.log(lineList);
 }

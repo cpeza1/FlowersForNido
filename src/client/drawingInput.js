@@ -1,8 +1,9 @@
 import paper from 'paper'
 import { debounce } from 'throttle-debounce';
 import { getCenterOfElem, getElementFromPoint } from './lineUtils'
-import { sendLineAddedToServer } from './networking'
+import { sendLineAddedToServer, removeLineFromServer } from './networking'
 import { getCurrentTool } from './state'
+import { getCurrentLines } from './state'
 
 const Constants = require('../shared/constants');
 
@@ -88,25 +89,44 @@ function onMouseDrag (e) {
         if (line){
             current = line.draw(e.point);
         }
-
-        console.log("PEN");
     }
     else if (tool === Constants.TOOL.ERASER){
-        console.log("ERSER");
+        var currentPaths = getCurrentLines();
+
+        var hitResult = paper.project.hitTest(e.point)
+        if (!hitResult){
+           return;
+        }
+
+        // compare the event point with all the paths.
+        for (var i = 0; i < currentPaths.length; i++)
+        {
+            if (currentPaths[i].path == hitResult.item)
+            {
+                hitResult.item.remove();
+                removeLineFromServer(currentPaths[i].startpoint, currentPaths[i].endpoint)
+            }
+        }
     }
 }
 
 function onMouseUp (e) {
-    var elem = getElementFromPoint(e.point, "gridElement");
-    if (current) current.remove();
+    var tool = getCurrentTool();
+    if(tool === Constants.TOOL.PEN){
+        var elem = getElementFromPoint(e.point, "gridElement");
+        if (current) current.remove();
 
-    if (elem) {
-        var end = getCenterOfElem(elem);
-        current = line.draw(end);
+        if (elem) {
+            var end = getCenterOfElem(elem);
+            current = line.draw(end);
 
-        targetElemId = elem.id;
+            targetElemId = elem.id;
 
-        sendLineAddedToServer(originElemId, targetElemId);
+            if (originElemId != targetElemId)
+            {
+                sendLineAddedToServer(originElemId, targetElemId);
+            }
+        }
     }
 }
 

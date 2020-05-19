@@ -1,0 +1,105 @@
+
+.droppable
+{
+    background: #d3d3d3;
+
+    height: 5.555555555556vw;
+    width: 5.555555555556vw;
+    margin:1.388888888889vw;
+    
+}
+
+.tile {
+    /* width: 25%; */
+    /* min-height: 6.5em; */
+    height: 5vw;
+    width: 5vw;
+    /* margin: 10%; */
+    background-color: #29e;
+    color: white;
+    /* border-radius: 0.75em;
+    padding: 4%; */
+    touch-action: none;
+    user-select: none;
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+
+}
+
+.can--catch:before {
+    animation: grow .75s ease infinite;
+  }
+
+  @keyframes grow {
+    from { transform: scale(0); }
+    to {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+
+  .can--drop:not(.caught--it):not(.can--catch) {
+    /*animation: bounce 1.5s ease infinite;*/
+    animation: glow 1.5s ease infinite;
+  }
+
+  @keyframes glow {
+    10% {
+      background: rgba(255,255,255,.6);
+    }
+  }
+
+  @keyframes bounce {
+    50% {
+      transform:
+        scale(.98)
+        translateY(-5%);
+    }
+  }
+
+  /* * {
+    box-sizing: border-box;
+  }
+
+  .puzzleContainer{
+    width:100vw;
+  }
+
+#mainArea{
+      width:70vw;
+      
+  }
+
+  #drawerArea{
+      width:30vw;
+  } */
+
+  body
+  {
+      margin:0px;
+  }
+
+  #mainArea
+  {
+
+      position:relative;
+  }
+
+ #grid {
+    top:0;
+    left:0;
+    position: absolute;
+    z-index:-1;
+}
+
+canvas {
+    z-index:3;
+    width:100%;
+}
+
+
+#drawerArea
+{
+    margin:10px;
+}

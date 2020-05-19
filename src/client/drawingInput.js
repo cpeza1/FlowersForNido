@@ -129,8 +129,6 @@ function Square()
 }
 
 Square.prototype.draw = function (position,elem) {
-    console.log(offset(elem));
-    console.log(position);
 
     this.rect = new paper.Rectangle(position.left + window.scrollX , position.top, position.width, position.height);
 

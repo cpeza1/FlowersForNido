@@ -20,8 +20,6 @@ const Constants = require('../shared/constants');
 const eraseButton = document.getElementById('eraseButton');
 //const drawButton = document.getElementById('drawButton');
 
-console.log(eraseButton);
-
 eraseButton.onclick = () => { setTool(Constants.TOOL.ERASER); };
 drawButton.onclick = () => { setTool(Constants.TOOL.PEN); };
 
@@ -35,7 +33,6 @@ Promise.all([
     initState();
     startCapturingDrawings();
 
-    //drawButton.onclick = () => { setTool(Constants.TOOL.PEN); };
   }).catch(console.error);
 
 

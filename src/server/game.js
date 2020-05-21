@@ -23,6 +23,7 @@ class Game {
 
     addPlayer(socket) {
         this.sockets[socket.id] = socket;
+        this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
     }
 
     addLine(socket, originID, targetID)
@@ -45,8 +46,12 @@ class Game {
         this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
     }
 
-    handleInput(socket, dragObject) {
+    dragTile(socket, dragObject) {
         this.updatePlayers(socket, dragObject, Constants.MSG_TYPES.GAME_UPDATE, false);
+    }
+
+    dropTile(socket, droppedObject){
+        this.updatePlayers(socket, droppedObject, Constants.MSG_TYPES.GAME_UPDATE, false);
     }
 
     update() {

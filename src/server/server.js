@@ -30,7 +30,7 @@ const io = socketio(server);
 io.on('connection', socket => {
     console.log('Player connected!', socket.id);
     socket.on(Constants.MSG_TYPES.JOIN_GAME, joinGame);
-    socket.on(Constants.MSG_TYPES.DRAG, handleInput);
+    socket.on(Constants.MSG_TYPES.DRAG, dragTile);
     socket.on(Constants.MSG_TYPES.ADD_LINE, addLine);
     socket.on(Constants.MSG_TYPES.REMOVE_LINE, removeLine);
   });
@@ -38,8 +38,8 @@ io.on('connection', socket => {
   // Setup the Game
   const game = new Game();
   
-  function handleInput(dragObject) {
-    game.handleInput(this, dragObject);
+  function dragTile(dragObject) {
+    game.dragTile(this, dragObject);
   }
 
   function joinGame() {

@@ -13,7 +13,7 @@ class DraggableTile extends Component {
         return (
             <div id={"tile"+id}  
             className="draggable tile"
-            onClick={((e) => this.handleClick(e, this))}
+            //onClick={((e) => this.handleClick(e, this))}
             />)
     }
 } 

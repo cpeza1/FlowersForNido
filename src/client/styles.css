@@ -6,6 +6,7 @@
     height: 5.555555555556vw;
     width: 5.555555555556vw;
     margin:1.388888888889vw;
+    border-radius: 50%;
     
 }
 
@@ -23,6 +24,7 @@
     user-select: none;
     -webkit-transform: translate(0px, 0px);
             transform: translate(0px, 0px);
+            
 
 }
 
@@ -75,6 +77,9 @@
       width:30vw;
   } */
 
+
+  /* KEEP THIS */
+  
   body
   {
       margin:0px;
@@ -98,8 +103,8 @@ canvas {
     width:100%;
 }
 
-
-#drawerArea
+ #drawerArea
 {
     margin:10px;
+    width:100%;
 }

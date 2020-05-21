@@ -12,6 +12,16 @@ export function setTool(newTool)
 {
     console.log(newTool);
     currentTool = newTool;
+
+    if (newTool === Constants.TOOL.PEN)
+    {
+        $(".tile").css('pointer-events', 'none');
+    }
+    else if (newTool === Constants.TOOL.DRAG)
+    {
+        $(".tile").css('pointer-events', 'auto');
+    }
+
 }
 
 export function getCurrentTool()

@@ -47,14 +47,9 @@ export function snapElemToTarget()
           target.setAttribute('data-x', x);
           target.setAttribute('data-y', y);
             // Tell everyone else that we moved!
-            if(event.dontSend)
-            {
+          console.log(target.getAttribute('id'));
+          dragItem({x, y});
 
-            }
-            else{
-                dragItem({x, y});
-            }
-            
 
           target.classList.add('getting--dragged');
         },
@@ -77,6 +72,7 @@ export function snapElemToTarget()
 
         // The item is in the dropzone
         ondragenter: function (event) {
+          console.log("ENTER");
           var draggableElement = event.relatedTarget,
               dropzoneElement  = event.target,
               dropRect         = interact.getElementRect(dropzoneElement),
@@ -104,7 +100,8 @@ export function snapElemToTarget()
     //       event.target.classList.remove('can--catch', 'caught--it');
     //       event.relatedTarget.classList.remove('drop--me');
     //     },
-    //     ondrop: function (event) {
+        ondrop: function (event) {
+          console.log("DROP");
     //      // console.log("Index of dropped node: " + (event.target));
     //     //  console.log("Index of dragged node: " + getNodeIndex(event.relatedTarget.parentNode));
     //       //event.relatedTarget.textContent = 'Dropped';
@@ -112,7 +109,7 @@ export function snapElemToTarget()
     //   //    console.log("related target: " + event.relatedTarget.parentNode);
     //  //     console.log(event.draggable);
     //       event.target.classList.add('caught--it');
-    //     },
+        },
 
 
     //     ondropdeactivate: function (event) {

@@ -61,6 +61,8 @@ Line.prototype.draw = function (point) {
 
 function onMouseDown(e) {
     var tool = getCurrentTool();
+
+    console.log("CLICK");
     
     if(tool === Constants.TOOL.PEN){
         var elem = getElementFromPoint(e.point, "gridElement");

@@ -6,6 +6,7 @@ module.exports = Object.freeze({
         GAME_UPDATE: 'update',
         JOIN_GAME: 'join_game',
         DRAG: 'drag',
+        DROP:'drop',
         ADD_LINE: 'add_line',
         REMOVE_LINE: 'remove_line',
         UPDATE_LINES: 'update_lines'
@@ -13,6 +14,7 @@ module.exports = Object.freeze({
 
     TOOL: {
         ERASER: 'eraser',
-        PEN: 'pen'
+        PEN: 'pen',
+        DRAG: 'drag'
     }
 });

@@ -1,10 +1,34 @@
 const Constants = require('../shared/constants');
+import interact from 'interactjs'
 
 var currentTool;
 var currentLines = [];
 
+
+function storeStartingPositions()
+{
+    var draggableTiles = document.getElementsByClassName("draggable");
+
+     Array.from(draggableTiles).forEach(function(tile) {
+        var rect = interact.getElementRect(tile);
+        tile.setAttribute('data-initX', rect.left);
+        tile.setAttribute('data-initY', rect.top);
+        return tile;
+    });
+
+    $('.tile').each(function(i) {
+        var x = Math.floor(Math.random() * 256);
+        var y = Math.floor(Math.random() * 256);
+        var z = Math.floor(Math.random() * 256);
+        var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+
+        $(this).css('background-color',bgColor);
+    });
+}
+
 export function initState()
 {
+    storeStartingPositions();
     currentTool = Constants.TOOL.PEN;  
 }
 
@@ -21,7 +45,6 @@ export function setTool(newTool)
     {
         $(".tile").css('pointer-events', 'auto');
     }
-
 }
 
 export function getCurrentTool()

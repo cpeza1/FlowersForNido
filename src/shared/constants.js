@@ -7,10 +7,12 @@ module.exports = Object.freeze({
         JOIN_GAME: 'join_game',
         DRAG: 'drag',
         DROP:'drop',
+        DRAG_LEAVE: 'drag_leave',
         ADD_LINE: 'add_line',
         REMOVE_LINE: 'remove_line',
         UPDATE_LINES: 'update_lines',
-        UPDATE_DROP: 'update_drop'
+        UPDATE_DROP: 'update_drop',
+        UPDATE_DRAGLEAVE: 'update_dragLeave'
     },
 
     TOOL: {

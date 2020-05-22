@@ -65,8 +65,9 @@ function onMouseDown(e) {
     console.log("CLICK");
     
     if(tool === Constants.TOOL.PEN){
-        var elem = getElementFromPoint(e.point, "gridElement");
+        var elem = getElementFromPoint(e.point, "caught--it");
         if (elem) {
+            console.log("DRAGGABLE CLICKED");
             var center = getCenterOfElem(elem);
             line = new Line(center);
             originElemId = elem.id;
@@ -77,7 +78,6 @@ function onMouseDown(e) {
             sq.draw(pos,elem);
     
         }
-
     }
 }
 
@@ -115,7 +115,7 @@ function onMouseDrag (e) {
 function onMouseUp (e) {
     var tool = getCurrentTool();
     if(tool === Constants.TOOL.PEN){
-        var elem = getElementFromPoint(e.point, "gridElement");
+        var elem = getElementFromPoint(e.point, "caught--it");
         if (current) current.remove();
 
         if (elem) {

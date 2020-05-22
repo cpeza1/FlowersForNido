@@ -1,5 +1,5 @@
 import interact from 'interactjs'
-import { dragItem, sendDropItemToServer } from './networking';
+import { dragItem, sendDropItemToServer, sendDragLeaveToserver } from './networking';
 
 
 export function snapElemToTarget()
@@ -85,7 +85,6 @@ export function snapElemToTarget()
                 x: dropRect.left + dropRect.width  / 2,
                 y: dropRect.top  + dropRect.height / 2
               };
-        console.log("DropCenter ");
 
           event.draggable.draggable({
             snap: {
@@ -99,23 +98,25 @@ export function snapElemToTarget()
           draggableElement.classList.add('drop--me');
         },
 
-    //     // The item was moved out of the dropzone
-    //     ondragleave: function (event) {
-    //       // remove the drop feedback style
-    //       event.target.classList.remove('can--catch', 'caught--it');
-    //       event.relatedTarget.classList.remove('drop--me');
-    //     },
+        // The item was moved out of the dropzone
+        ondragleave: function (event) {
+          // remove the drop feedback style
+          // event.target.classList.remove('can--catch', 'caught--it');
+          // event.relatedTarget.classList.remove('drop--me');
+          sendDragLeaveToserver(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));
+        },
+
         ondrop: function (event) {
           console.log("DROP");
           sendDropItemToServer(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));
-          //dropItem()
+
     //      // console.log("Index of dropped node: " + (event.target));
     //     //  console.log("Index of dragged node: " + getNodeIndex(event.relatedTarget.parentNode));
     //       //event.relatedTarget.textContent = 'Dropped';
     //       console.log("Dropped!");
     //   //    console.log("related target: " + event.relatedTarget.parentNode);
     //  //     console.log(event.draggable);
-    //       event.target.classList.add('caught--it');
+           event.target.classList.add('caught--it');
         },
 
 

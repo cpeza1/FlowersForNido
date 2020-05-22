@@ -12,10 +12,11 @@ export function getElementFromPoint(point, name)
     var offsetY = window.scrollY ;
 
     var elems = document.elementsFromPoint(point.x - offsetX, point.y - offsetY);
+
     for (var i = 0; i < elems.length; i++)
     {
         var className = elems[i].className;
-        if (className.includes("gridElement"))
+        if (className.includes(name))
         {
             return elems[i];
         }

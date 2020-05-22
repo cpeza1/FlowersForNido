@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 import { throttle } from 'throttle-debounce';
-import { processGameUpdate, renderLinesFromServer, dropItem } from './render';
+import { processGameUpdate, renderLinesFromServer, dropItem, dragLeaveUpdate } from './render';
 
 const Constants = require('../shared/constants');
 
@@ -17,8 +17,9 @@ export const connect = onGameOver => (
   connectedPromise.then(() => {
     // Register callbacks
     socket.on(Constants.MSG_TYPES.GAME_UPDATE, processGameUpdate);
-   // socket.on(Constants.MSG_TYPES.UPDATE_DROP, dropItem);
+    socket.on(Constants.MSG_TYPES.UPDATE_DROP, dropItem);
     socket.on(Constants.MSG_TYPES.UPDATE_LINES, renderLinesFromServer);
+    socket.on(Constants.MSG_TYPES.UPDATE_DRAGLEAVE, dragLeaveUpdate);
     // socket.on(Constants.MSG_TYPES.GAME_OVER, onGameOver);
     // socket.on('disconnect', () => {
     //   console.log('Disconnected from server.');
@@ -55,4 +56,9 @@ export const removeLineFromServer = (from, target) =>
 export const sendDropItemToServer = (draggable, dropZone) =>
 {
   socket.emit(Constants.MSG_TYPES.DROP, draggable, dropZone);
+}
+
+export const sendDragLeaveToserver = (draggable, dropZone) =>
+{
+  socket.emit(Constants.MSG_TYPES.DRAG_LEAVE, draggable, dropZone);
 }

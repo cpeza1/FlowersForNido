@@ -34,6 +34,7 @@ io.on('connection', socket => {
     socket.on(Constants.MSG_TYPES.DROP, dropTile);
     socket.on(Constants.MSG_TYPES.ADD_LINE, addLine);
     socket.on(Constants.MSG_TYPES.REMOVE_LINE, removeLine);
+    socket.on(Constants.MSG_TYPES.DRAG_LEAVE, dragLeave);
   });
   
   // Setup the Game
@@ -48,7 +49,7 @@ io.on('connection', socket => {
   }
 
   function addLine(fromID, targetID) {
-      game.addLine(this, fromID, targetID);
+    game.addLine(this, fromID, targetID);
   }
 
   function removeLine(fromID, targetID) {
@@ -58,4 +59,9 @@ io.on('connection', socket => {
   function dropTile(draggableId, dropZoneId)
   {
     game.dropTile(this, draggableId, dropZoneId);
+  }
+
+  function dragLeave(draggableId, dropZoneId)
+  {
+    game.dragLeave(this, draggableId, dropZoneId);
   }

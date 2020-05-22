@@ -42,7 +42,6 @@ class Game {
                 this.paths.splice(i,1);
             }
         }
-        console.log(this.paths);
         this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
     }
 
@@ -56,6 +55,26 @@ class Game {
             dropZone: dropZoneId,
         }
         this.updatePlayers(socket, dropObject, Constants.MSG_TYPES.UPDATE_DROP, false);
+    }
+    
+    dragLeave(socket, draggableId, dropZoneId){
+        var dropObject = {
+            draggable: draggableId,
+            dropZone: dropZoneId,
+        }
+
+        var i = this.paths.length
+        while(i--)
+        {
+            var path = this.paths[i];
+            if (path.originID == dropZoneId || path.targetID == dropZoneId)
+            {
+                this.paths.splice(i,1);
+            }
+        }
+
+        this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
+        this.updatePlayers(socket, dropObject, Constants.MSG_TYPES.UPDATE_DRAGLEAVE, false);
     }
 
     update() {

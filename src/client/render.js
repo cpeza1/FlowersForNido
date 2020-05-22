@@ -62,7 +62,7 @@ export function dropItem(drop)
     // console.log(dropZoneElem.getAttribute("data-y"));
 
     var dragRect         = interact.getElementRect(dragElem);
-     var dropRect         = interact.getElementRect(dropZoneElem);
+    var dropRect         = interact.getElementRect(dropZoneElem);
     // var dropCenter       = {
     //     x: dropRect.left + dropRect.width  / 2,
     //     y: dropRect.top  + dropRect.height / 2
@@ -75,29 +75,32 @@ export function dropItem(drop)
     path.strokeWidth = 3;
     path.strokeColor = 'red';
 
-    if(init == 0)
-    {
-        init=1;
-        prevX = dragElem.getAttribute("data-x");
-        prevY = dragElem.getAttribute("data-y");
-        prevX = dragRect.left;
-        prevY = dragRect.top;
+    prevX = dragElem.getAttribute("data-initx");
+    prevY = dragElem.getAttribute("data-inity");
 
         // REMEMBER: we need to store the original position and calculate bsed on that
-    }
 
     var x = dropRect.left - prevX;
     var y = dropRect.top - prevY;
-
-    console.log(x+" "+y);
+    
+    // console.log(x+" "+y);
 
     dragElem.style.webkitTransform =
     dragElem.style.transform =
             'translate(' + x + 'px, ' + y + 'px)';
     dragElem.setAttribute('data-x', x);
     dragElem.setAttribute('data-y', y);
-
+    dropZoneElem.classList.add('caught--it');
     console.log("DROPPED");
+}
+
+export function dragLeaveUpdate(dragLeaveObject)
+{
+    var dragElem = document.getElementById(dragLeaveObject.draggable);
+    var dropZoneElem = document.getElementById(dragLeaveObject.dropZone);
+
+    dropZoneElem.classList.remove('can--catch', 'caught--it');
+    dragElem.classList.remove('drop--me');
 }
 
 export function renderLinesFromServer(lineList)

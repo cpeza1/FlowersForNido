@@ -12,7 +12,7 @@ class ObjectDrawer extends Component {
 
     render(){
         let tiles = [];
-        for (var i = 0; i <14; i++)
+        for (var i = 0; i <2; i++)
         {
             let tile = (<DraggableTile id={i}/>);
             tiles.push(tile);

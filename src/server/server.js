@@ -31,6 +31,7 @@ io.on('connection', socket => {
     console.log('Player connected!', socket.id);
     socket.on(Constants.MSG_TYPES.JOIN_GAME, joinGame);
     socket.on(Constants.MSG_TYPES.DRAG, dragTile);
+    socket.on(Constants.MSG_TYPES.DROP, dropTile);
     socket.on(Constants.MSG_TYPES.ADD_LINE, addLine);
     socket.on(Constants.MSG_TYPES.REMOVE_LINE, removeLine);
   });
@@ -52,4 +53,9 @@ io.on('connection', socket => {
 
   function removeLine(fromID, targetID) {
     game.removeLine(this, fromID, targetID);
+  }
+
+  function dropTile(draggableId, dropZoneId)
+  {
+    game.dropTile(this, draggableId, dropZoneId);
   }

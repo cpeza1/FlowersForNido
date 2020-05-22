@@ -1,5 +1,5 @@
 import interact from 'interactjs'
-import { dragItem } from './networking';
+import { dragItem, sendDropItemToServer } from './networking';
 
 
 export function snapElemToTarget()
@@ -47,8 +47,13 @@ export function snapElemToTarget()
           target.setAttribute('data-x', x);
           target.setAttribute('data-y', y);
             // Tell everyone else that we moved!
-          console.log(target.getAttribute('id'));
-          dragItem({x, y});
+          
+          var dxRel = x / document.body.clientWidth;
+          var dyRel = y / document.body.clientHeight;
+          // console.log(event.dy + " " + dyRel);
+
+          var draggableId = target.getAttribute("id");
+          dragItem({id: draggableId, x, y, dxRel, dyRel});
 
 
           target.classList.add('getting--dragged');
@@ -102,6 +107,8 @@ export function snapElemToTarget()
     //     },
         ondrop: function (event) {
           console.log("DROP");
+          sendDropItemToServer(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));
+          //dropItem()
     //      // console.log("Index of dropped node: " + (event.target));
     //     //  console.log("Index of dragged node: " + getNodeIndex(event.relatedTarget.parentNode));
     //       //event.relatedTarget.textContent = 'Dropped';

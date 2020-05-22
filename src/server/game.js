@@ -50,8 +50,12 @@ class Game {
         this.updatePlayers(socket, dragObject, Constants.MSG_TYPES.GAME_UPDATE, false);
     }
 
-    dropTile(socket, droppedObject){
-        this.updatePlayers(socket, droppedObject, Constants.MSG_TYPES.GAME_UPDATE, false);
+    dropTile(socket, draggableId, dropZoneId){
+        var dropObject = {
+            draggable: draggableId,
+            dropZone: dropZoneId,
+        }
+        this.updatePlayers(socket, dropObject, Constants.MSG_TYPES.UPDATE_DROP, false);
     }
 
     update() {

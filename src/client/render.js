@@ -2,6 +2,8 @@ import interact from 'interactjs'
 import paper from 'paper'
 import { getCenterOfElem } from './lineUtils'
 import { setCurrentLines } from './state'
+//import { MakeDNDSimulator } from './dndsim'
+
 
 var canvas = document.getElementById('game-canvas');
 paper.setup(canvas);
@@ -15,34 +17,87 @@ function clearCanvas()
     paper.project.clear()
 }
 
+function triggerMouseEvent (node, eventType) {
+    var clickEvent = document.createEvent ('MouseEvents');
+    clickEvent.initEvent (eventType, true, true);
+    node.dispatchEvent (clickEvent);
+}
+
 // process an update from another player
 export function processGameUpdate(dragObject){
 
-    var elem = document.getElementsByClassName("draggable")[0];
+    var elem = document.getElementById(dragObject.id);
+
+    //console.log(dragObject);
+
+    // elem.style.webkitTransform =
+    // elem.style.transform =
+    //         'translate(' + dragObject.x + 'px, ' + dragObject.y + 'px)';
+    // elem.setAttribute('data-x', dragObject.x);
+    // elem.setAttribute('data-y', dragObject.y);
+
+    var x = dragObject.dxRel * document.body.clientWidth;
+    var y = dragObject.dyRel * document.body.clientHeight;
 
     elem.style.webkitTransform =
     elem.style.transform =
-            'translate(' + dragObject.x + 'px, ' + dragObject.y + 'px)';
-    elem.setAttribute('data-x', dragObject.x);
-    elem.setAttribute('data-y', dragObject.y);
+            'translate(' + x + 'px, ' + y + 'px)';
+    elem.setAttribute('data-x', x);
+    elem.setAttribute('data-y', y);
+    
 
    // console.log(dragObject.x + " " + dragObject.y);
 
-    // interact('.droppable').fire({
-    //     type:'dragenter',
-    //     relatedTarget: document.getElementById('tile1'),
-    //     dontSend: true,
-    //     target: document.getElementById('0 9'),
-    //     draggable: 
-    //   interact('.draggable').draggable({
-    //     // For the first movement, if we fail to drop on a dropzone, we'll go back to startPos
+    console.log("MOVED");
+}
 
-    //     onend: function (event) {
-    //       event.target.classList.remove('getting--dragged')
-    //     }
-    //   }),
-    // });
-    // x=1;
+var prevX;
+var prevY;
+var init = 0;
+export function dropItem(drop)
+{
+    var dragElem = document.getElementById(drop.draggable);
+    var dropZoneElem = document.getElementById(drop.dropZone);
+
+    // console.log(dropZoneElem.getAttribute("data-y"));
+
+    var dragRect         = interact.getElementRect(dragElem);
+     var dropRect         = interact.getElementRect(dropZoneElem);
+    // var dropCenter       = {
+    //     x: dropRect.left + dropRect.width  / 2,
+    //     y: dropRect.top  + dropRect.height / 2
+    // };
+
+
+    var rect = new paper.Rectangle(dropRect.left + window.scrollX , dropRect.top + window.scrollY, dropRect.width, dropRect.height);
+
+    var path = new paper.Path.Rectangle(rect);
+    path.strokeWidth = 3;
+    path.strokeColor = 'red';
+
+    if(init == 0)
+    {
+        init=1;
+        prevX = dragElem.getAttribute("data-x");
+        prevY = dragElem.getAttribute("data-y");
+        prevX = dragRect.left;
+        prevY = dragRect.top;
+
+        // REMEMBER: we need to store the original position and calculate bsed on that
+    }
+
+    var x = dropRect.left - prevX;
+    var y = dropRect.top - prevY;
+
+    console.log(x+" "+y);
+
+    dragElem.style.webkitTransform =
+    dragElem.style.transform =
+            'translate(' + x + 'px, ' + y + 'px)';
+    dragElem.setAttribute('data-x', x);
+    dragElem.setAttribute('data-y', y);
+
+    console.log("DROPPED");
 }
 
 export function renderLinesFromServer(lineList)
@@ -70,3 +125,5 @@ export function renderLinesFromServer(lineList)
 
     setCurrentLines(newLines);
 }
+
+

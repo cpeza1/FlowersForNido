@@ -9,7 +9,8 @@ module.exports = Object.freeze({
         DROP:'drop',
         ADD_LINE: 'add_line',
         REMOVE_LINE: 'remove_line',
-        UPDATE_LINES: 'update_lines'
+        UPDATE_LINES: 'update_lines',
+        UPDATE_DROP: 'update_drop'
     },
 
     TOOL: {

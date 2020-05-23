@@ -12,7 +12,8 @@ module.exports = Object.freeze({
         REMOVE_LINE: 'remove_line',
         UPDATE_LINES: 'update_lines',
         UPDATE_DROP: 'update_drop',
-        UPDATE_DRAGLEAVE: 'update_dragLeave'
+        UPDATE_DRAGLEAVE: 'update_dragLeave',
+        UPDATE_MAP: 'update_map'
     },
 
     TOOL: {

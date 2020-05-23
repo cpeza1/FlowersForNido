@@ -10,15 +10,6 @@
     
 }
 
-#drawerArea
-{
-  position: absolute;
-  background: #d3d3d3;
-  border-radius: 0%;
-  width: 100%;
-
-}
-
 .tile {
     /* width: 25%; */
     /* min-height: 6.5em; */
@@ -69,51 +60,60 @@
     }
   }
 
-  /* * {
-    box-sizing: border-box;
-  }
 
-  .puzzleContainer{
-    width:100vw;
-  }
+body
+{
+  margin:0px;
+}
 
-#mainArea{
-      width:70vw;
-      
-  }
+#mainArea
+{
 
-  #drawerArea{
-      width:30vw;
-  } */
+  position:relative;
+}
 
-
-  /* KEEP THIS */
-  
-  body
-  {
-      margin:0px;
-  }
-
-  #mainArea
-  {
-
-      position:relative;
-  }
-
- #grid {
-    top:0;
-    left:0;
-    position: absolute;
-    z-index:-1;
+#grid {
+  top:0;
+  left:0;
+  position: absolute;
+  z-index:-1;
 }
 
 canvas {
-    z-index:3;
-    width:100%;
+  z-index:3;
+  width:100%;
+
 }
 
- #drawerArea
+#drawerArea
 {
-    margin:10px;
-    width:100%;
+  position: absolute;
+  background: #d3d3d3;
+  border-radius: 0%;
+  width: 100%;
+  margin:10px;
+}
+
+/* Styles for the slideshow /
+/* Next & previous buttons */
+#prev,
+#next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+#next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
 }

@@ -6,6 +6,7 @@ class Game {
         this.sockets = {};
         this.players = {};
         this.paths = [];
+        this.droppedTiles = new Map();
         setInterval(this.update.bind(this), 1000 / 60);
     }
 
@@ -20,11 +21,22 @@ class Game {
             }
         });
     }
+    
 
     addPlayer(socket) {
         this.sockets[socket.id] = socket;
         this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
+
+        var draggables = [...this.droppedTiles.keys()];
+        var droppables = [...this.droppedTiles.values()];
+
+        this.updatePlayers(socket, {draggables: draggables, droppables: droppables}, Constants.MSG_TYPES.UPDATE_MAP, true);
     }
+
+    removePlayer(socket) {
+        delete this.sockets[socket.id];
+        console.log('Player disconnected!', socket.id);
+      }
 
     addLine(socket, originID, targetID)
     {
@@ -34,7 +46,8 @@ class Game {
 
     removeLine(socket, originID, targetID)
     {
-        for (var i = 0; i < this.paths.length; i++)
+        var i = this.paths.length;
+        while(i--)
         {
             var path = this.paths[i];
             if (path.originID == originID && path.targetID == targetID)
@@ -54,6 +67,11 @@ class Game {
             draggable: draggableId,
             dropZone: dropZoneId,
         }
+
+        // Populate the map that the server uses to keep track of the state of the moved tiles.
+        this.droppedTiles.set(draggableId, dropZoneId);
+
+        // Let other players know that we dropped a tile.
         this.updatePlayers(socket, dropObject, Constants.MSG_TYPES.UPDATE_DROP, false);
     }
     

@@ -68,8 +68,10 @@ export function dropItem(drop)
     //     y: dropRect.top  + dropRect.height / 2
     // };
 
+    var paddingX = (dropRect.width - dragRect.width) / 2;
+    var paddingY = (dropRect.height - dragRect.height) / 2;
 
-    var rect = new paper.Rectangle(dropRect.left + window.scrollX , dropRect.top + window.scrollY, dropRect.width, dropRect.height);
+    var rect = new paper.Rectangle(dropRect.left , dropRect.top, dropRect.width, dropRect.height);
 
     var path = new paper.Path.Rectangle(rect);
     path.strokeWidth = 3;
@@ -80,8 +82,8 @@ export function dropItem(drop)
 
         // REMEMBER: we need to store the original position and calculate bsed on that
 
-    var x = dropRect.left - prevX;
-    var y = dropRect.top - prevY;
+    var x = dropRect.left - prevX + paddingX;
+    var y = dropRect.top - prevY + paddingY;
     
     // console.log(x+" "+y);
 
@@ -92,6 +94,18 @@ export function dropItem(drop)
     dragElem.setAttribute('data-y', y);
     dropZoneElem.classList.add('caught--it');
     console.log("DROPPED");
+}
+
+export function renderLatestMapFromServer(tileMap)
+{
+    // On game load, we'll render all the tiles with the latest status from the server
+    var draggableList = tileMap.draggables;
+    var droppableList = tileMap.droppables;
+    
+    for(var i = 0; i < draggableList.length; i++)
+    {
+        dropItem({draggable: draggableList[i], dropZone: droppableList[i]});
+    }
 }
 
 export function dragLeaveUpdate(dragLeaveObject)
@@ -106,7 +120,7 @@ export function dragLeaveUpdate(dragLeaveObject)
 export function renderLinesFromServer(lineList)
 {
     clearCanvas();
-
+    console.log("LINES");
     var newLines = [];
 
     for (var i=0; i < lineList.length; i++)

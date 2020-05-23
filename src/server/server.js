@@ -35,6 +35,7 @@ io.on('connection', socket => {
     socket.on(Constants.MSG_TYPES.ADD_LINE, addLine);
     socket.on(Constants.MSG_TYPES.REMOVE_LINE, removeLine);
     socket.on(Constants.MSG_TYPES.DRAG_LEAVE, dragLeave);
+    socket.on('disconnect', onDisconnect);
   });
   
   // Setup the Game
@@ -64,4 +65,9 @@ io.on('connection', socket => {
   function dragLeave(draggableId, dropZoneId)
   {
     game.dragLeave(this, draggableId, dropZoneId);
+  }
+
+  function onDisconnect()
+  {
+    game.removePlayer(this);
   }

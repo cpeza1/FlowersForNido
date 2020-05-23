@@ -61,13 +61,10 @@ Line.prototype.draw = function (point) {
 
 function onMouseDown(e) {
     var tool = getCurrentTool();
-
-    console.log("CLICK");
     
     if(tool === Constants.TOOL.PEN){
         var elem = getElementFromPoint(e.point, "caught--it");
         if (elem) {
-            console.log("DRAGGABLE CLICKED");
             var center = getCenterOfElem(elem);
             line = new Line(center);
             originElemId = elem.id;

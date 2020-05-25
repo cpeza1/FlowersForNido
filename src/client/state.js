@@ -3,7 +3,7 @@ import interact from 'interactjs'
 
 var currentTool;
 var currentLines = [];
-var slideIndex = 1;
+var slideIndex = 0;
 
 function storeStartingPositions()
 {
@@ -64,24 +64,16 @@ export function setCurrentLines(lines)
 
 export function plusSlides(n) 
 {
-    showSlides(slideIndex += n);
+    slideIndex += n;
 }
 
-export function currentSlide(n) 
+export function setCurrentSlideIndex(n) 
 {
-    showSlides(slideIndex = n);
+    return slideIndex = n;
 }
 
-export function showSlides(n) 
+export function getCurrentSlideIndex() 
 {
-    var i;
-    var slides = document.getElementsByClassName("viewX");
-
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-
-    slides[slideIndex-1].style.display = "block";
+    return slideIndex;
 }
+

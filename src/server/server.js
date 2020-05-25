@@ -35,6 +35,7 @@ io.on('connection', socket => {
     socket.on(Constants.MSG_TYPES.ADD_LINE, addLine);
     socket.on(Constants.MSG_TYPES.REMOVE_LINE, removeLine);
     socket.on(Constants.MSG_TYPES.DRAG_LEAVE, dragLeave);
+    socket.on(Constants.MSG_TYPES.GET_MAP, getMap);
     socket.on('disconnect', onDisconnect);
   });
   
@@ -65,6 +66,11 @@ io.on('connection', socket => {
   function dragLeave(draggableId, dropZoneId)
   {
     game.dragLeave(this, draggableId, dropZoneId);
+  }
+
+  function getMap()
+  {
+    game.getMap(this);
   }
 
   function onDisconnect()

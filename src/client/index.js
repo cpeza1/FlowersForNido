@@ -16,7 +16,10 @@ import eraser from '../../public/assets/eraser.png'
 import pencil from '../../public/assets/pencil.png'
 import drag from '../../public/assets/drag.png'
 
-import { setTool, initState, plusSlides, showSlides } from './state'
+import { setTool, initState, plusSlides, getCurrentSlideIndex } from './state'
+import { showSlides } from './gallerycontrol'
+
+
 
 const Constants = require('../shared/constants');
 const eraseButton = document.getElementById('eraseButton');
@@ -28,9 +31,15 @@ const nextButton = document.getElementById('next');
 eraseButton.onclick = () => { setTool(Constants.TOOL.ERASER); document.documentElement.style.cursor = 'url(' + eraser +'), default';};
 drawButton.onclick = () => { setTool(Constants.TOOL.PEN); document.documentElement.style.cursor = 'url(' + pencil +'), default'; }; 
 dragButton.onclick = () => { setTool(Constants.TOOL.DRAG) }; 
-prevButton.onclick = () => { plusSlides(-1); };
-nextButton.onclick = () => { plusSlides(1); };
+prevButton.onclick = () => { plusSlides(-1); showSlides(getCurrentSlideIndex()); };
+nextButton.onclick = () => { plusSlides(1); showSlides(getCurrentSlideIndex()); };
 
+function importAll(r) {
+  return r.keys().map(r);
+}
+
+const images = importAll(require.context('../../public/assets', false, /\.(png|jpe?g|svg)$/));
+console.log(images);
 
 Promise.all([
     connect(),

@@ -70,10 +70,10 @@ export function snapElemToTarget()
 
 
         // // The item is getting dragged
-        // ondropactivate: function (event) {
-        //     console.log("ACTIVATE");
-        //   event.target.classList.add('can--drop');
-        // },
+        ondropactivate: function (event) {
+            console.log("ACTIVATE");
+          event.target.classList.add('can--drop');
+        },
 
         // The item is in the dropzone
         ondragenter: function (event) {
@@ -120,11 +120,12 @@ export function snapElemToTarget()
         },
 
 
-    //     ondropdeactivate: function (event) {
-    //       // remove active dropzone feedback
-    //       event.target.classList.remove('can--drop');
-    //       event.target.classList.remove('can--catch');
-    //     }
+        ondropdeactivate: function (event) {
+          console.log("drop deactivate");
+          // remove active dropzone feedback
+          // event.target.classList.remove('can--drop');
+          // event.target.classList.remove('can--catch');
+        }
       });
     }
   

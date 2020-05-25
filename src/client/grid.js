@@ -19,7 +19,7 @@ const Grid = (props) => {
               // The rows need keys, too.
               grid.push(<tr key={i}>{columns}</tr>);
             }
-            return (<div id="grid" className="viewX"><table><tbody>{grid}</tbody></table></div>);
+            return (<div id="grid" className="gridView"><table><tbody>{grid}</tbody></table></div>);
         }
         return createGrid();
 } 

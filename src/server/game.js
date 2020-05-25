@@ -21,16 +21,27 @@ class Game {
             }
         });
     }
-    
+
+    updateSinglePlayer(socket, objectToSend, messageType)
+    {
+        socket.emit(messageType, objectToSend);
+    }
+
+    getMap(socket)
+    {
+        var draggables = [...this.droppedTiles.keys()];
+        var droppables = [...this.droppedTiles.values()];
+        this.updateSinglePlayer(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES);
+        this.updateSinglePlayer(socket, {draggables: draggables, droppables: droppables}, Constants.MSG_TYPES.UPDATE_MAP);
+    }    
 
     addPlayer(socket) {
         this.sockets[socket.id] = socket;
-        this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
 
-        var draggables = [...this.droppedTiles.keys()];
-        var droppables = [...this.droppedTiles.values()];
-
-        this.updatePlayers(socket, {draggables: draggables, droppables: droppables}, Constants.MSG_TYPES.UPDATE_MAP, true);
+        // var draggables = [...this.droppedTiles.keys()];
+        // var droppables = [...this.droppedTiles.values()];
+        // this.updatePlayers(socket, this.paths, Constants.MSG_TYPES.UPDATE_LINES, true);
+        // this.updatePlayers(socket, {draggables: draggables, droppables: droppables}, Constants.MSG_TYPES.UPDATE_MAP, true);
     }
 
     removePlayer(socket) {

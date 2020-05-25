@@ -63,3 +63,8 @@ export const sendDragLeaveToserver = (draggable, dropZone) =>
 {
   socket.emit(Constants.MSG_TYPES.DRAG_LEAVE, draggable, dropZone);
 }
+
+export const getFullMapState = () =>
+{
+  socket.emit(Constants.MSG_TYPES.GET_MAP);
+}

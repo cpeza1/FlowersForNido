@@ -1,7 +1,7 @@
 import interact from 'interactjs'
 import paper from 'paper'
 import { getCenterOfElem } from './lineUtils'
-import { setCurrentLines } from './state'
+import { setCurrentLines, getCurrentSlideIndex } from './state'
 //import { MakeDNDSimulator } from './dndsim'
 
 
@@ -51,36 +51,44 @@ export function processGameUpdate(dragObject){
     console.log("MOVED");
 }
 
-var prevX;
-var prevY;
-var init = 0;
+function dropZoneAppliesToCurrentContext(dropZone)
+{
+    var dropZoneId = dropZone.getAttribute("id");
+    var slideIndex = getCurrentSlideIndex();
+    if (dropZoneId.startsWith(slideIndex))
+    {
+        console.log(dropZoneId);
+        return true;
+    }
+    return false;
+}
+
 export function dropItem(drop)
 {
     var dragElem = document.getElementById(drop.draggable);
     var dropZoneElem = document.getElementById(drop.dropZone);
 
-    // console.log(dropZoneElem.getAttribute("data-y"));
+    if(!dropZoneAppliesToCurrentContext(dropZoneElem))
+    {
+        dragElem.style.visibility = "hidden";
+        return;
+    }
+
+    dragElem.style.visibility = null;
 
     var dragRect         = interact.getElementRect(dragElem);
     var dropRect         = interact.getElementRect(dropZoneElem);
-    // var dropCenter       = {
-    //     x: dropRect.left + dropRect.width  / 2,
-    //     y: dropRect.top  + dropRect.height / 2
-    // };
 
     var paddingX = (dropRect.width - dragRect.width) / 2;
     var paddingY = (dropRect.height - dragRect.height) / 2;
 
     var rect = new paper.Rectangle(dropRect.left , dropRect.top, dropRect.width, dropRect.height);
+   // var path = new paper.Path.Rectangle(rect);
+    ///path.strokeWidth = 3;
+    //path.strokeColor = 'red';
 
-    var path = new paper.Path.Rectangle(rect);
-    path.strokeWidth = 3;
-    path.strokeColor = 'red';
-
-    prevX = dragElem.getAttribute("data-initx");
-    prevY = dragElem.getAttribute("data-inity");
-
-        // REMEMBER: we need to store the original position and calculate bsed on that
+    var prevX = dragElem.getAttribute("data-initx");
+    var prevY = dragElem.getAttribute("data-inity");
 
     var x = dropRect.left - prevX + paddingX;
     var y = dropRect.top - prevY + paddingY;
@@ -93,6 +101,12 @@ export function dropItem(drop)
     dragElem.setAttribute('data-x', x);
     dragElem.setAttribute('data-y', y);
     dropZoneElem.classList.add('caught--it');
+
+    var jq = $(dragElem);
+    // console.log(jq);
+
+    jq.hide().fadeIn("slow");
+
     console.log("DROPPED");
 }
 
@@ -119,6 +133,7 @@ export function dragLeaveUpdate(dragLeaveObject)
 
 export function renderLinesFromServer(lineList)
 {
+    return;
     clearCanvas();
     console.log("LINES");
     var newLines = [];
@@ -143,5 +158,4 @@ export function renderLinesFromServer(lineList)
 
     setCurrentLines(newLines);
 }
-
 

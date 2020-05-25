@@ -7,6 +7,7 @@ module.exports = Object.freeze({
         JOIN_GAME: 'join_game',
         DRAG: 'drag',
         DROP:'drop',
+        GET_MAP: 'get_map',
         DRAG_LEAVE: 'drag_leave',
         ADD_LINE: 'add_line',
         REMOVE_LINE: 'remove_line',

@@ -51,10 +51,10 @@ Line.prototype.draw = function (point) {
     this.path = new paper.Path.Line(this.start, end);
     this.path.closed = true;
     
-    this.path.strokeWidth = 3;
-    this.path.strokColor = 'black';
+    this.path.strokeWidth = 8;
     this.path.fillColor = 'black';
     this.path.strokeColor = 'red';
+
 
     return this.path;
 }
@@ -113,6 +113,7 @@ function onMouseUp (e) {
     var tool = getCurrentTool();
     if(tool === Constants.TOOL.PEN){
         var elem = getElementFromPoint(e.point, "caught--it");
+        console.log(elem);
         if (current) current.remove();
 
         if (elem) {

@@ -68,11 +68,10 @@ body
 
 #mainArea
 {
-
   position:relative;
 }
 
-#grid {
+#grid, #grid1, #grid2, #grid3 {
   top:0;
   left:0;
   position: absolute;
@@ -82,7 +81,6 @@ body
 canvas {
   z-index:3;
   width:100%;
-
 }
 
 #drawerArea

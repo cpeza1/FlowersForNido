@@ -14,7 +14,7 @@ class ObjectDrawer extends Component {
         let tiles = [];
         for (var i = 0; i <40; i++)
         {
-            let tile = (<DraggableTile id={i}/>);
+            let tile = (<DraggableTile key={i} id={i}/>);
             tiles.push(tile);
         }
 

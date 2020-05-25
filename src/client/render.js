@@ -101,7 +101,7 @@ export function renderLatestMapFromServer(tileMap)
     // On game load, we'll render all the tiles with the latest status from the server
     var draggableList = tileMap.draggables;
     var droppableList = tileMap.droppables;
-    
+    console.log(droppableList);
     for(var i = 0; i < draggableList.length; i++)
     {
         dropItem({draggable: draggableList[i], dropZone: droppableList[i]});
@@ -136,6 +136,7 @@ export function renderLinesFromServer(lineList)
         path.strokeWidth = 3;
         path.fillColor = 'black';
         path.strokeColor = 'red';
+        path.dashOffset=2;
 
         newLines.push({path: path, startpoint: line.originID, endpoint: line.targetID });
     }

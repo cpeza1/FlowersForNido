@@ -8,22 +8,31 @@ var slideIndex = 0;
 function storeStartingPositions()
 {
     var draggableTiles = document.getElementsByClassName("draggable");
+    var imgIndex = 1;
 
      Array.from(draggableTiles).forEach(function(tile) {
         var rect = interact.getElementRect(tile);
         tile.setAttribute('data-initX', rect.left);
         tile.setAttribute('data-initY', rect.top);
+        
+        var url = "../assets/flowers/" + imgIndex +  ".png";
+        tile.style.backgroundImage = 'url(' + url +  ')';
+        imgIndex++;
         return tile;
     });
 
-    $('.tile').each(function(i) {
-        var x = Math.floor(Math.random() * 256);
-        var y = Math.floor(Math.random() * 256);
-        var z = Math.floor(Math.random() * 256);
-        var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+    // var j = 1;
+    // $('.tile').each(function(i) {
+    //     var x = Math.floor(Math.random() * 256);
+    //     var y = Math.floor(Math.random() * 256);
+    //     var z = Math.floor(Math.random() * 256);
+    //     var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+    //     // var url =
+    //    // $(this).css('background-color',bgColor);
+    //    //$(this).css('background-image', )');
+    // });
 
-        $(this).css('background-color',bgColor);
-    });
+
 }
 
 export function initState()

@@ -55,11 +55,12 @@ function dropZoneAppliesToCurrentContext(dropZone)
 {
     var dropZoneId = dropZone.getAttribute("id");
     var slideIndex = getCurrentSlideIndex();
-    if (dropZoneId.startsWith(slideIndex))
+    if (isNaN(dropZoneId[0]) || dropZoneId.startsWith(slideIndex))
     {
         console.log(dropZoneId);
         return true;
     }
+
     return false;
 }
 
@@ -133,7 +134,6 @@ export function dragLeaveUpdate(dragLeaveObject)
 
 export function renderLinesFromServer(lineList)
 {
-    return;
     clearCanvas();
     console.log("LINES");
     var newLines = [];

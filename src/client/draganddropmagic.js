@@ -71,13 +71,13 @@ export function snapElemToTarget()
 
         // // The item is getting dragged
         ondropactivate: function (event) {
-            console.log("ACTIVATE");
-          event.target.classList.add('can--drop');
+            //console.log("ACTIVATE");
+          //event.target.classList.add('can--drop');
         },
 
         // The item is in the dropzone
         ondragenter: function (event) {
-          console.log("ENTER");
+          //console.log("ENTER");
           var draggableElement = event.relatedTarget,
               dropzoneElement  = event.target,
               dropRect         = interact.getElementRect(dropzoneElement),
@@ -86,12 +86,20 @@ export function snapElemToTarget()
                 y: dropRect.top  + dropRect.height / 2
               };
 
+          if(dropzoneElement.getAttribute("id") == "drawerArea")
+          {
+
+            // dropCenter = {
+            //   x: parseFloat(draggableElement.getAttribute("data-initx")),
+            //   y: parseFloat(draggableElement.getAttribute("data-inity"))
+            // }
+          }
+
           event.draggable.draggable({
             snap: {
               targets: [dropCenter]
             }
           });
-         // console.log("dragCenter");
   
           // feedback the possibility of a drop
           dropzoneElement.classList.add('can--catch');
@@ -103,11 +111,18 @@ export function snapElemToTarget()
           // remove the drop feedback style
           // event.target.classList.remove('can--catch', 'caught--it');
           // event.relatedTarget.classList.remove('drop--me');
-          sendDragLeaveToserver(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));
+          var LastCaughtId = event.target.getAttribute("LastCaughtId");
+
+          if (event.relatedTarget.getAttribute("id") === LastCaughtId)
+          {
+            sendDragLeaveToserver(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));
+            event.target.setAttribute("LastCaughtId", "");
+            event.target.classList.remove('caught--it');
+          }
         },
 
         ondrop: function (event) {
-          console.log("DROP");
+          //console.log("DROP");
           sendDropItemToServer(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));
 
     //      // console.log("Index of dropped node: " + (event.target));
@@ -116,12 +131,13 @@ export function snapElemToTarget()
     //       console.log("Dropped!");
     //   //    console.log("related target: " + event.relatedTarget.parentNode);
     //  //     console.log(event.draggable);
-           event.target.classList.add('caught--it');
+            event.target.setAttribute("LastCaughtId", event.relatedTarget.getAttribute("id"));
+            event.target.classList.add('caught--it');
         },
 
 
         ondropdeactivate: function (event) {
-          console.log("drop deactivate");
+          //console.log("drop deactivate");
           // remove active dropzone feedback
           // event.target.classList.remove('can--drop');
           // event.target.classList.remove('can--catch');

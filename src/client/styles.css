@@ -13,10 +13,12 @@
 .tile {
     /* width: 25%; */
     /* min-height: 6.5em; */
-    height: 5vw;
-    width: 5vw;
+    height: 6vw;
+    width: 6vw;
     /* margin: 10%; */
-    background-color: #29e;
+    /* background-color: #29e; */
+    background-image: url("../../public/assets/flowers/2.png");;
+    background-size: contain;
     color: white;
     /* border-radius: 0.75em;
     padding: 4%; */
@@ -69,6 +71,7 @@ body
 #mainArea
 {
   position:relative;
+  height:70vh;
 }
 
 #grid, #grid1, #grid2, #grid3 {

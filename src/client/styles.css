@@ -85,7 +85,7 @@ body
   left:0;
   right:0;
   position: absolute;
-  /* background-image: url("../../public/assets/flowersBG.png"); */
+  background-image: url("../../public/assets/FlowersBG.png");
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   image-rendering: -moz-crisp-edges;

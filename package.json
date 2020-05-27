@@ -9,8 +9,7 @@
     "build": "webpack --config webpack.prod.js",
     "develop": "cross-env NODE_ENV=development node src/server/server.js",
     "start": "cross-env NODE_ENV=production node src/server/server.js",
-    "start:dev": "webpack-dev-server --open",
-    "heroku-postbuild": "webpack -p"
+    "start:dev": "webpack-dev-server --open"
   },
   "keywords": [],
   "author": "",

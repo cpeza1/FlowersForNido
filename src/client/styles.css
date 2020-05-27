@@ -18,7 +18,7 @@
     width: 6vw;
     /* margin: 10%; */
     /* background-color: #29e; */
-    background-image: url("../../public/assets/flowers/2.png");
+    /* background-image: url("../../public/assets/flowers/2.png"); */
     background-size: contain;
     color: white;
     /* border-radius: 0.75em;
@@ -85,7 +85,7 @@ body
   left:0;
   right:0;
   position: absolute;
-  background-image: url("../../public/assets/flowersBG.png");
+  /* background-image: url("../../public/assets/flowersBG.png"); */
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   image-rendering: -moz-crisp-edges;

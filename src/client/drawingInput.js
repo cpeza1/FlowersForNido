@@ -51,10 +51,9 @@ Line.prototype.draw = function (point) {
     this.path = new paper.Path.Line(this.start, end);
     this.path.closed = true;
     
-    this.path.strokeWidth = 8;
+    this.path.strokeWidth = 10;
     this.path.fillColor = 'black';
-    this.path.strokeColor = 'red';
-
+    this.path.strokeColor = '#5e211c';
 
     return this.path;
 }

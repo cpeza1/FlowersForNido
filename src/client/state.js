@@ -21,15 +21,17 @@ function storeStartingPositions()
         return tile;
     });
 
+
     // var j = 1;
     // $('.tile').each(function(i) {
-    //     var x = Math.floor(Math.random() * 256);
-    //     var y = Math.floor(Math.random() * 256);
-    //     var z = Math.floor(Math.random() * 256);
-    //     var bgColor = "rgb(" + x + "," + y + "," + z + ")";
-    //     // var url =
+    //     // var x = Math.floor(Math.random() * 256);
+    //     // var y = Math.floor(Math.random() * 256);
+    //     // var z = Math.floor(Math.random() * 256);
+    //     // var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+    //     var url = "../assets/flowers/" + json +  ".png";
     //    // $(this).css('background-color',bgColor);
-    //    //$(this).css('background-image', )');
+    // //    $(this).tooltip({conent: '<img src= />' });
+    // //    j++;
     // });
 
 
@@ -46,7 +48,7 @@ export function setTool(newTool)
     console.log(newTool);
     currentTool = newTool;
 
-    if (newTool === Constants.TOOL.PEN)
+    if (newTool === Constants.TOOL.PEN || newTool === Constants.TOOL.ERASER)
     {
         $(".tile").css('pointer-events', 'none');
     }

@@ -1,6 +1,6 @@
 import interact from 'interactjs'
 import { dragItem, sendDropItemToServer, sendDragLeaveToserver } from './networking';
-
+import { isDrawerArea } from './lineUtils'
 
 export function snapElemToTarget()
 {
@@ -50,11 +50,10 @@ export function snapElemToTarget()
           
           var dxRel = x / document.body.clientWidth;
           var dyRel = y / document.body.clientHeight;
-          // console.log(event.dy + " " + dyRel);
+          console.log(document.body.clientWidth + " "  + document.body.clientHeight);
 
           var draggableId = target.getAttribute("id");
           dragItem({id: draggableId, x, y, dxRel, dyRel});
-
 
           target.classList.add('getting--dragged');
         },
@@ -86,13 +85,13 @@ export function snapElemToTarget()
                 y: dropRect.top  + dropRect.height / 2
               };
 
-          if(dropzoneElement.getAttribute("id") == "drawerArea")
+          if(isDrawerArea(dropzoneElement))
           {
-
-            // dropCenter = {
-            //   x: parseFloat(draggableElement.getAttribute("data-initx")),
-            //   y: parseFloat(draggableElement.getAttribute("data-inity"))
-            // }
+            draggableElement.classList.add('inToolbox');
+          }
+          else
+          {
+            draggableElement.classList.remove('inToolbox');
           }
 
           event.draggable.draggable({
@@ -112,8 +111,8 @@ export function snapElemToTarget()
           // event.target.classList.remove('can--catch', 'caught--it');
           // event.relatedTarget.classList.remove('drop--me');
           var LastCaughtId = event.target.getAttribute("LastCaughtId");
-
-          if (event.relatedTarget.getAttribute("id") === LastCaughtId)
+          console.log(LastCaughtId);
+          if (event.relatedTarget.getAttribute("id") == LastCaughtId)
           {
             sendDragLeaveToserver(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));
             event.target.setAttribute("LastCaughtId", "");

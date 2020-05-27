@@ -1,6 +1,6 @@
 import interact from 'interactjs'
 import paper from 'paper'
-import { getCenterOfElem } from './lineUtils'
+import { getCenterOfElem, resetElementToDrawer, isDrawerArea } from './lineUtils'
 import { setCurrentLines, getCurrentSlideIndex } from './state'
 //import { MakeDNDSimulator } from './dndsim'
 
@@ -23,7 +23,7 @@ function triggerMouseEvent (node, eventType) {
     node.dispatchEvent (clickEvent);
 }
 
-// process an update from another player
+// This gets invoked every time a tile gets dragged.
 export function processGameUpdate(dragObject){
 
     var elem = document.getElementById(dragObject.id);
@@ -39,6 +39,7 @@ export function processGameUpdate(dragObject){
     var x = dragObject.dxRel * document.body.clientWidth;
     var y = dragObject.dyRel * document.body.clientHeight;
 
+    console.log(document.body.clientWidth + " "  + document.body.clientHeight);
     elem.style.webkitTransform =
     elem.style.transform =
             'translate(' + x + 'px, ' + y + 'px)';
@@ -46,11 +47,9 @@ export function processGameUpdate(dragObject){
     elem.setAttribute('data-y', y);
     
 
-   // console.log(dragObject.x + " " + dragObject.y);
-
-    console.log("MOVED");
 }
 
+// Checks if the dropZone is either the Drawer or the current Garden/Grid
 function dropZoneAppliesToCurrentContext(dropZone)
 {
     var dropZoneId = dropZone.getAttribute("id");
@@ -69,6 +68,17 @@ export function dropItem(drop)
     var dragElem = document.getElementById(drop.draggable);
     var dropZoneElem = document.getElementById(drop.dropZone);
 
+    // return to Drawer if the dropZone is the Drawer.
+    if (isDrawerArea(dropZoneElem))
+    {
+        resetElementToDrawer(dragElem);
+        return;
+    }
+    else
+    {
+        dragElem.classList.remove('inToolbox');
+    }
+
     if(!dropZoneAppliesToCurrentContext(dropZoneElem))
     {
         dragElem.style.visibility = "hidden";
@@ -83,17 +93,19 @@ export function dropItem(drop)
     var paddingX = (dropRect.width - dragRect.width) / 2;
     var paddingY = (dropRect.height - dragRect.height) / 2;
 
+    // Drawing a rectangle around the droppable (for debugging purposes only)
     var rect = new paper.Rectangle(dropRect.left , dropRect.top, dropRect.width, dropRect.height);
-   // var path = new paper.Path.Rectangle(rect);
-    ///path.strokeWidth = 3;
-    //path.strokeColor = 'red';
+    var path = new paper.Path.Rectangle(rect);
+    path.strokeWidth = 3;
+    path.strokeColor = 'red';
 
     var prevX = dragElem.getAttribute("data-initx");
     var prevY = dragElem.getAttribute("data-inity");
 
     var x = dropRect.left - prevX + paddingX;
     var y = dropRect.top - prevY + paddingY;
-    
+    // console.log("Init " + prevX + " " + prevY);
+    // console.log("Rect " + dropRect.left + " " + dropRect.top);
     // console.log(x+" "+y);
 
     dragElem.style.webkitTransform =
@@ -102,10 +114,9 @@ export function dropItem(drop)
     dragElem.setAttribute('data-x', x);
     dragElem.setAttribute('data-y', y);
     dropZoneElem.classList.add('caught--it');
+    dropZoneElem.setAttribute("LastCaughtId", drop.draggable);
 
     var jq = $(dragElem);
-    // console.log(jq);
-
     jq.hide().fadeIn("slow");
 
     console.log("DROPPED");
@@ -128,14 +139,15 @@ export function dragLeaveUpdate(dragLeaveObject)
     var dragElem = document.getElementById(dragLeaveObject.draggable);
     var dropZoneElem = document.getElementById(dragLeaveObject.dropZone);
 
-    dropZoneElem.classList.remove('can--catch', 'caught--it');
-    dragElem.classList.remove('drop--me');
+    dropZoneElem.classList.remove('caught--it');
+    //dragElem.classList.remove('drop--me');
+
+    dropZoneElem.setAttribute("LastCaughtId", "");
 }
 
 export function renderLinesFromServer(lineList)
 {
     clearCanvas();
-    console.log("LINES");
     var newLines = [];
 
     for (var i=0; i < lineList.length; i++)
@@ -148,10 +160,10 @@ export function renderLinesFromServer(lineList)
 
         path.closed = true;
     
-        path.strokeWidth = 3;
+        path.strokeWidth = 10;
         path.fillColor = 'black';
-        path.strokeColor = 'red';
-        path.dashOffset=2;
+        path.strokeColor = '#5e211c';
+        path.shadowColor = 'red';
 
         newLines.push({path: path, startpoint: line.originID, endpoint: line.targetID });
     }

@@ -32,3 +32,18 @@ export function getCenterOfElem(elem)
 
     return p;
 }
+
+export function isDrawerArea(dropZone)
+{
+    return dropZone.getAttribute("id") === "drawerArea";    
+}
+
+
+export function resetElementToDrawer(elem)
+{
+    elem.classList.add('inToolbox');
+    elem.style.removeProperty('transform');
+    elem.style.removeProperty('webkitTransform');
+    elem.removeAttribute('data-x');
+    elem.removeAttribute('data-y');
+}

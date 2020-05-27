@@ -83,7 +83,7 @@ class Game {
         this.droppedTiles.set(draggableId, dropZoneId);
 
         // Let other players know that we dropped a tile.
-        this.updatePlayers(socket, dropObject, Constants.MSG_TYPES.UPDATE_DROP, false);
+        this.updatePlayers(socket, dropObject, Constants.MSG_TYPES.UPDATE_DROP, true);
     }
     
     dragLeave(socket, draggableId, dropZoneId){

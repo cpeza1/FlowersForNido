@@ -12,9 +12,9 @@ class DraggableTile extends Component {
         const id = this.props.id;
         return (
             <div id={"tile"+id}  
-            className="draggable tile"
+            className="draggable tile inToolbox"
             //onClick={((e) => this.handleClick(e, this))}
-            />)
+            ></div>)
     }
 } 
 

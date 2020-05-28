@@ -116,8 +116,9 @@ export function dropItem(drop)
     dropZoneElem.classList.add('caught--it');
     dropZoneElem.setAttribute("LastCaughtId", drop.draggable);
 
-    var jq = $(dragElem);
-    jq.hide().fadeIn("slow");
+    // removing the blink effect because Evelyn hates it.
+    // var jq = $(dragElem);
+    // jq.hide().fadeIn("slow");
 
     console.log("DROPPED");
 }

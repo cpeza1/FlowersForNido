@@ -85,7 +85,7 @@ body
   left:0;
   right:0;
   position: absolute;
-  background-image: url("../../public/assets/flowersbg2.png");
+  background-image: url("../../public/assets/flowersbg.png");
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   image-rendering: -moz-crisp-edges;
@@ -110,9 +110,13 @@ table
 #drawerArea
 {
   text-align:center;
-  background: #d3d3d3;
+  /* background: #d3d3d3; */
   border-radius: 0%;
   margin: 0 auto;
+
+  background-image: url("../../public/assets/drawer.png");
+
+  background-size:100% 100%;
 }
 
 #toolbar

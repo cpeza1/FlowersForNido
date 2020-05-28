@@ -94,10 +94,10 @@ export function dropItem(drop)
     var paddingY = (dropRect.height - dragRect.height) / 2;
 
     // Drawing a rectangle around the droppable (for debugging purposes only)
-    var rect = new paper.Rectangle(dropRect.left , dropRect.top, dropRect.width, dropRect.height);
-    var path = new paper.Path.Rectangle(rect);
-    path.strokeWidth = 3;
-    path.strokeColor = 'red';
+    // var rect = new paper.Rectangle(dropRect.left , dropRect.top, dropRect.width, dropRect.height);
+    // var path = new paper.Path.Rectangle(rect);
+    // path.strokeWidth = 3;
+    // path.strokeColor = 'red';
 
     var prevX = dragElem.getAttribute("data-initx");
     var prevY = dragElem.getAttribute("data-inity");

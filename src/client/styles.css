@@ -103,7 +103,6 @@ canvas {
 
 table
 {
-
   margin:3vw auto;
 }
 
@@ -113,9 +112,7 @@ table
   /* background: #d3d3d3; */
   border-radius: 0%;
   margin: 0 auto;
-
   background-image: url("../../public/assets/drawer.png");
-
   background-size:100% 100%;
 }
 

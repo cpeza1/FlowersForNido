@@ -27,8 +27,6 @@ export function snapElemToTarget()
         // Called the very first time that the object gets dragged.
         onstart: function (event) {
             var rect = interact.getElementRect(event.target);
-  
-
         },
 
         // call this function on every dragmove event
@@ -50,10 +48,10 @@ export function snapElemToTarget()
           
           var dxRel = x / document.body.clientWidth;
           var dyRel = y / document.body.clientHeight;
-          console.log(document.body.clientWidth + " "  + document.body.clientHeight);
+          //console.log(document.body.clientWidth + " "  + document.body.clientHeight);
 
           var draggableId = target.getAttribute("id");
-          dragItem({id: draggableId, x, y, dxRel, dyRel});
+          //dragItem({id: draggableId, x, y, dxRel, dyRel});
 
           target.classList.add('getting--dragged');
         },
@@ -66,7 +64,6 @@ export function snapElemToTarget()
       interact('.droppable').dropzone({
         accept: '.draggable',
         overlap: .5,
-
 
         // // The item is getting dragged
         ondropactivate: function (event) {
@@ -94,12 +91,16 @@ export function snapElemToTarget()
             draggableElement.classList.remove('inToolbox');
           }
 
-          event.draggable.draggable({
-            snap: {
-              targets: [dropCenter]
-            }
-          });
-  
+          var LastCaughtId = dropzoneElement.getAttribute("LastCaughtId");
+          if (isDrawerArea(dropzoneElement) || !dropzoneElement.classList.contains("caught--it") || draggableElement.getAttribute("id") == LastCaughtId)
+          {
+            event.draggable.draggable({
+              snap: {
+                targets: [dropCenter]
+              }
+            });
+          }
+
           // feedback the possibility of a drop
           dropzoneElement.classList.add('can--catch');
           draggableElement.classList.add('drop--me');
@@ -111,7 +112,6 @@ export function snapElemToTarget()
           // event.target.classList.remove('can--catch', 'caught--it');
           // event.relatedTarget.classList.remove('drop--me');
           var LastCaughtId = event.target.getAttribute("LastCaughtId");
-          console.log(LastCaughtId);
           if (event.relatedTarget.getAttribute("id") == LastCaughtId)
           {
             sendDragLeaveToserver(event.relatedTarget.getAttribute("id"), event.target.getAttribute("id"));

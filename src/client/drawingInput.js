@@ -71,7 +71,7 @@ function onMouseDown(e) {
             var pos = elem.getBoundingClientRect();
     
             var sq = new Square();
-            sq.draw(pos,elem);
+            //sq.draw(pos,elem);
     
         }
     }

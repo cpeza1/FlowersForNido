@@ -28,8 +28,8 @@ const dragButton = document.getElementById('dragButton');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
 
-eraseButton.onclick = () => { setTool(Constants.TOOL.ERASER); document.documentElement.style.cursor = 'url(' + eraser +') 12 12, auto';};
-drawButton.onclick = () => { setTool(Constants.TOOL.PEN); document.documentElement.style.cursor = 'url(' + pencil +') 12 12, auto'; }; 
+eraseButton.onclick = () => { setTool(Constants.TOOL.ERASER); document.documentElement.style.cursor = 'url(' + eraser +') 0 24, auto';};
+drawButton.onclick = () => { setTool(Constants.TOOL.PEN); document.documentElement.style.cursor = 'url(' + pencil +') 0 24, auto'; }; 
 dragButton.onclick = () => { setTool(Constants.TOOL.DRAG) }; 
 // prevButton.onclick = () => { plusSlides(-1); showSlides(getCurrentSlideIndex()); };
 // nextButton.onclick = () => { plusSlides(1); showSlides(getCurrentSlideIndex()); };

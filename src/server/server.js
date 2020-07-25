@@ -47,7 +47,8 @@ io.on('connection', socket => {
   const rooms = new Rooms();
 
   function dragTile(dragObject) {
-    game.dragTile(this, dragObject);
+    var game = rooms.GetRoomBySocket(this);
+    game ? game.dragTile(this, dragObject) : {};
   }
 
   function joinGame(teamID /*, userName*/) {
@@ -80,8 +81,8 @@ io.on('connection', socket => {
 
   function dragLeave(draggableId, dropZoneId)
   {
-    // var game = rooms.GetRoomBySocket(this);
-    // game ? game.dragLeave(this, draggableId, dropZoneId) : {};
+    var game = rooms.GetRoomBySocket(this);
+    game ? game.dragLeave(this, draggableId, dropZoneId) : {};
   }
 
   function getMap()

@@ -51,7 +51,7 @@ export function snapElemToTarget()
           //console.log(document.body.clientWidth + " "  + document.body.clientHeight);
 
           var draggableId = target.getAttribute("id");
-          //dragItem({id: draggableId, x, y, dxRel, dyRel});
+          dragItem({id: draggableId, x, y, dxRel, dyRel});
 
           target.classList.add('getting--dragged');
         },

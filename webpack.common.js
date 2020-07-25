@@ -6,7 +6,8 @@ var webpack = require("webpack");
 module.exports = {
   entry: 
   {
-      game: './src/client/index.js'
+      game: './src/client/index.js',
+      admin: './src/client/admin.js'
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -48,8 +49,14 @@ module.exports = {
       }),
     new HtmlWebpackPlugin({
         filename: 'index.html',
+        chunks: ['game'],
         template: 'src/client/html/index.html'
     }),
+    new HtmlWebpackPlugin({
+      filename: 'admin.html',
+      chunks: ['admin'],
+      template: 'src/client/html/admin.html'
+  }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'

@@ -19,8 +19,6 @@ import drag from '../../public/assets/drag.png'
 import { setTool, initState, plusSlides, getCurrentSlideIndex } from './state'
 import { showSlides } from './gallerycontrol'
 
-
-
 const Constants = require('../shared/constants');
 const eraseButton = document.getElementById('eraseButton');
 const drawButton = document.getElementById('drawButton');
@@ -38,21 +36,45 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
+function GetURLParameter(sParam) {
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+
+  console.log(sPageURL);
+
+  for (var i = 0; i < sURLVariables.length; i++)
+  {
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam)
+      {
+          return sParameterName[1];
+      }
+  }
+}
+
 const images = importAll(require.context('../../public/assets', false, /\.(png|jpe?g|svg)$/));
 console.log(images);
 
+const playMenu = document.getElementById('play-menu');
+const playButton = document.getElementById('play-button');
+const usernameInput = document.getElementById('username-input');
+const board = document.getElementById('board');
 
 Promise.all([
     connect(),
 
    // downloadAssets(),
   ]).then(() => {
-    play();
-    //startRendering();
-
-    showSlides(1);
-    initState();
-    startCapturingDrawings();
-
+    // playMenu.classList.remove('hidden');
+    // board.classList.add('hidden');
+    // usernameInput.focus();
+    // playButton.onclick = () => {
+      play(GetURLParameter("team"));
+    //  playMenu.classList.add('hidden');
+      board.classList.remove('hidden');
+      showSlides(1);
+      initState();
+      startCapturingDrawings();
+    // };
   }).catch(console.error);
 

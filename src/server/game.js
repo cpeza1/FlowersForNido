@@ -10,6 +10,11 @@ class Game {
         setInterval(this.update.bind(this), 1000 / 60);
     }
 
+    numberOfPlayers()
+    {
+        return Object.keys(this.sockets).length;
+    }
+
     updatePlayers(socket, objectToSend, messageType, sendToAll)
     {
         Object.keys(this.sockets).forEach(playerID => {

@@ -6,6 +6,7 @@ const socketio = require('socket.io');
 const Constants = require('../shared/constants');
 const Game = require('./game');
 const webpackConfig = require('../../webpack.dev.js');
+const Rooms = require('./rooms')
 
 const app = express();
 app.use(express.static('public'));
@@ -26,6 +27,7 @@ console.log(`Server listening on port ${port}`);
 
 // Setup socket.io
 const io = socketio(server);
+var adminSockets = {};
 
 io.on('connection', socket => {
     console.log('Player connected!', socket.id);
@@ -36,44 +38,78 @@ io.on('connection', socket => {
     socket.on(Constants.MSG_TYPES.REMOVE_LINE, removeLine);
     socket.on(Constants.MSG_TYPES.DRAG_LEAVE, dragLeave);
     socket.on(Constants.MSG_TYPES.GET_MAP, getMap);
+    socket.on(Constants.MSG_TYPES.GET_TEAMS, getTeams);
     socket.on('disconnect', onDisconnect);
   });
   
   // Setup the Game
-  const game = new Game();
-  
+  //const game = new Game();
+  const rooms = new Rooms();
+
   function dragTile(dragObject) {
     game.dragTile(this, dragObject);
   }
 
-  function joinGame() {
-    game.addPlayer(this);
+  function joinGame(teamID /*, userName*/) {
+    if(teamID==null)
+    {
+      console.log("team ID is null");
+      return;
+    }
+
+    var game = rooms.GetRoomByTeamId(this, teamID);
+    game ? game.addPlayer(this) : {};
   }
 
   function addLine(fromID, targetID) {
-    game.addLine(this, fromID, targetID);
+    var game = rooms.GetRoomBySocket(this);
+    game ? game.addLine(this, fromID, targetID) : {};
   }
 
   function removeLine(fromID, targetID) {
-    game.removeLine(this, fromID, targetID);
+    var game = rooms.GetRoomBySocket(this);
+    game ? game.removeLine(this, fromID, targetID) : {};
   }
 
   function dropTile(draggableId, dropZoneId)
   {
-    game.dropTile(this, draggableId, dropZoneId);
+    var game = rooms.GetRoomBySocket(this);
+    game ? game.dropTile(this, draggableId, dropZoneId) : {};
+    
   }
 
   function dragLeave(draggableId, dropZoneId)
   {
-    game.dragLeave(this, draggableId, dropZoneId);
+    // var game = rooms.GetRoomBySocket(this);
+    // game ? game.dragLeave(this, draggableId, dropZoneId) : {};
   }
 
   function getMap()
   {
-    game.getMap(this);
+    var game = rooms.GetRoomBySocket(this);
+    game ? game.getMap(this) : {};
+  }
+
+  function getTeams()
+  {
+    console.log("Getting teams");
+    adminSockets[this.id] = this;
+
+    var roomList = rooms.GetRooms();
+
+    console.log("The teams are:" + roomList);
+    this.emit(Constants.MSG_TYPES.UPDATE_TEAMS, roomList);
   }
 
   function onDisconnect()
   {
-    game.removePlayer(this);
+    if(this.id in adminSockets)
+    {
+      console.log("Admin disconnected");
+      delete adminSockets[this.id];
+      return;
+    }
+
+    var game = rooms.GetRoomBySocket(this);
+    game ? game.removePlayer(this) : {};
   }

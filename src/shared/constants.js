@@ -14,7 +14,9 @@ module.exports = Object.freeze({
         UPDATE_LINES: 'update_lines',
         UPDATE_DROP: 'update_drop',
         UPDATE_DRAGLEAVE: 'update_dragLeave',
-        UPDATE_MAP: 'update_map'
+        UPDATE_MAP: 'update_map',
+        GET_TEAMS: 'get_teams',
+        UPDATE_TEAMS: 'update_teams'
     },
 
     TOOL: {

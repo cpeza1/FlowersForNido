@@ -32,12 +32,19 @@ export const connect = onGameOver => (
   })
 );
 
+export const adminConnect = (updateTeamsFunc) => (
+  connectedPromise.then(() => {
+    socket.on(Constants.MSG_TYPES.UPDATE_TEAMS, updateTeamsFunc)
+  })
+);
+
 // export const play = username => {
 //   socket.emit(Constants.MSG_TYPES.JOIN_GAME, username);
 // };
 
-export const play = () => {
-    socket.emit(Constants.MSG_TYPES.JOIN_GAME);
+export const play = (teamId /*, username */) => {
+    console.log("Play");
+    socket.emit(Constants.MSG_TYPES.JOIN_GAME, teamId /*, username*/);
   };
 
 export const dragItem = throttle(20, dragObject => {
@@ -67,4 +74,11 @@ export const sendDragLeaveToserver = (draggable, dropZone) =>
 export const getFullMapState = () =>
 {
   socket.emit(Constants.MSG_TYPES.GET_MAP);
+}
+
+// admin functions
+export const getListOfTeams = () =>
+{
+  console.log("Fetching list of teams");
+  socket.emit(Constants.MSG_TYPES.GET_TEAMS);
 }
